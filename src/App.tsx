@@ -73,7 +73,7 @@ function App() {
             <CssBaseline />
             <AppBar>
                 <Toolbar>
-                    <Typography variant="h6">ADOFAI Editor Utils</Typography>
+                    <Typography variant="h6">ADOFAI Editor Tools</Typography>
                 </Toolbar>
             </AppBar>
             <Backdrop style={{ zIndex: 99999 }} open={drag}>
