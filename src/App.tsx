@@ -100,7 +100,7 @@ function App() {
                                 <ListItemIcon>
                                     {editor ? <ExpandLess /> : <ExpandMore />}
                                 </ListItemIcon>
-                                맵 파일 에디터
+                                맵 파일 에디터(쓸데없음)
                             </ListItem>
                             <Collapse in={editor}>
                                 <div style={{ marginTop: 10 }}>
