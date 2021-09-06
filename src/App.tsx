@@ -3,21 +3,19 @@ import {
     Alert,
     AppBar,
     Backdrop,
+    Box,
     Button,
-    Collapse,
     Container,
     CssBaseline,
-    ListItem,
-    ListItemIcon,
     Toolbar,
     Typography,
 } from '@material-ui/core'
 import { useRecoilState } from 'recoil'
 import { SAlert, SFile, SFileData } from './state'
-import { BorderedBox } from './components/BorderedBox'
 import { LevelParser } from './parser'
 import Editor from '@monaco-editor/react'
-import { Download, ExpandLess, ExpandMore } from '@material-ui/icons'
+import { Download } from '@material-ui/icons'
+import ExpansionPanel from './components/ExpansionPanel'
 
 function download(filename: string, text: string) {
     const element = document.createElement('a')
@@ -41,7 +39,6 @@ function App() {
     const [file, setFile] = useRecoilState(SFile)
     const [mapData, setMapData] = useRecoilState(SFileData)
     const editorRef = React.useRef<any>(null)
-    const [editor, setEditor] = React.useState(false)
 
     return (
         <div
@@ -95,36 +92,28 @@ function App() {
                 {alert && <Alert severity={'error'}>{alert}</Alert>}
                 {mapData ? (
                     <>
-                        <BorderedBox>
-                            <ListItem onClick={() => setEditor(!editor)} button>
-                                <ListItemIcon>
-                                    {editor ? <ExpandLess /> : <ExpandMore />}
-                                </ListItemIcon>
-                                맵 파일 에디터(쓸데없음)
-                            </ListItem>
-                            <Collapse in={editor}>
-                                <div style={{ marginTop: 10 }}>
-                                    <Editor
-                                        height="500px"
-                                        language="json"
-                                        value={JSON.stringify(mapData, null, 4)}
-                                        onMount={(editor) => {
-                                            editorRef.current = editor
-                                        }}
-                                        onChange={(value) => {
-                                            if (!value) return
-                                            try {
-                                                const data = JSON.parse(value)
-                                                setMapData(data)
-                                                setAlert(null)
-                                            } catch (e: any) {
-                                                setAlert(e.message)
-                                            }
-                                        }}
-                                    />
-                                </div>
-                            </Collapse>
-                        </BorderedBox>
+                        <ExpansionPanel title="맵 파일 에디터(쓸데없음)">
+                            <div>
+                                <Editor
+                                    height="500px"
+                                    language="json"
+                                    value={JSON.stringify(mapData, null, 4)}
+                                    onMount={(editor) => {
+                                        editorRef.current = editor
+                                    }}
+                                    onChange={(value) => {
+                                        if (!value) return
+                                        try {
+                                            const data = JSON.parse(value)
+                                            setMapData(data)
+                                            setAlert(null)
+                                        } catch (e: any) {
+                                            setAlert(e.message)
+                                        }
+                                    }}
+                                />
+                            </div>
+                        </ExpansionPanel>
                         <Button
                             startIcon={<Download />}
                             variant="outlined"
@@ -137,7 +126,7 @@ function App() {
                     </>
                 ) : (
                     <label htmlFor="fileSelect">
-                        <BorderedBox>
+                        <Box>
                             <input
                                 id="fileSelect"
                                 type="file"
@@ -165,7 +154,7 @@ function App() {
                                 맵 파일 드래그 또는 여기를 클릭해 파일을
                                 선택해주세요
                             </Typography>
-                        </BorderedBox>
+                        </Box>
                     </label>
                 )}
             </Container>
