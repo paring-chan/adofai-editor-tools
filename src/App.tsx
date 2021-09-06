@@ -16,6 +16,7 @@ import { LevelParser } from './parser'
 import Editor from '@monaco-editor/react'
 import { Download } from '@material-ui/icons'
 import ExpansionPanel from './components/ExpansionPanel'
+import RepeatFilter from './features/RepeatFilter'
 
 function download(filename: string, text: string) {
     const element = document.createElement('a')
@@ -114,6 +115,7 @@ function App() {
                                 />
                             </div>
                         </ExpansionPanel>
+                        <RepeatFilter />
                         <Button
                             startIcon={<Download />}
                             variant="outlined"

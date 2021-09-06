@@ -2,7 +2,7 @@ import React from 'react'
 import { Collapse, ListItem, ListItemIcon } from '@material-ui/core'
 import { ExpandLess, ExpandMore } from '@material-ui/icons'
 
-const ExpansionPanel: React.FC<{ title: string }> = ({ children }) => {
+const ExpansionPanel: React.FC<{ title: string }> = ({ children, title }) => {
     const [open, setOpen] = React.useState(false)
 
     return (
@@ -11,7 +11,7 @@ const ExpansionPanel: React.FC<{ title: string }> = ({ children }) => {
                 <ListItemIcon>
                     {open ? <ExpandLess /> : <ExpandMore />}
                 </ListItemIcon>
-                맵 파일 에디터(쓸데없음)
+                {title}
             </ListItem>
             <Collapse in={open}>
                 <div style={{ marginTop: 10 }}>{children}</div>
